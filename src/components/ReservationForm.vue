@@ -1,113 +1,93 @@
 <template>
-  <div class="max-w-md mx-auto p-6 bg-white shadow-lg rounded-lg mt-10">
-    <h2 class="text-2xl font-bold mb-6 text-center">Réservation de Table</h2>
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h2 class="card-title text-center mb-4">Réserver une table</h2>
 
-    <form @submit.prevent="submitReservation" class="space-y-4">
-      <!-- Date -->
-      <div>
-        <label class="block mb-1 font-medium">Date</label>
-        <input type="date" v-model="reservation.date" required class="input" />
+            <form @submit.prevent="submitReservation">
+              <!-- Date -->
+              <div class="mb-3">
+                <label class="form-label">Date</label>
+                <input type="date" class="form-control" v-model="form.date" required />
+              </div>
+
+              <!-- Heure -->
+              <div class="mb-3">
+                <label class="form-label">Heure</label>
+                <input type="time" class="form-control" v-model="form.time" required />
+              </div>
+
+              <!-- Nombre de personnes -->
+              <div class="mb-3">
+                <label class="form-label">Nombre de personnes</label>
+                <select class="form-select" v-model.number="form.people" required>
+                  <option v-for="n in 10" :key="n" :value="n">{{ n }}</option>
+                </select>
+              </div>
+
+              <!-- Téléphone -->
+              <div class="mb-3">
+                <label class="form-label">Téléphone *</label>
+                <input
+                  type="tel"
+                  class="form-control"
+                  v-model="form.phone"
+                  required
+                  pattern="^[0-9\s\+\-]{6,15}$"
+                  placeholder="+33 6 12 34 56 78"
+                />
+              </div>
+
+              <!-- Message -->
+              <div v-if="message" :class="['alert', success ? 'alert-success' : 'alert-danger']">
+                {{ message }}
+              </div>
+
+              <!-- Bouton -->
+              <button type="submit" class="btn btn-primary w-100">
+                Réserver maintenant
+              </button>
+            </form>
+          </div>
+        </div>
       </div>
-
-      <!-- Heure -->
-      <div>
-        <label class="block mb-1 font-medium">Heure</label>
-        <input type="time" v-model="reservation.time" required class="input" />
-      </div>
-
-      <!-- Nombre de personnes -->
-      <div>
-        <label class="block mb-1 font-medium">Nombre de personnes</label>
-        <select v-model.number="reservation.people" class="input">
-          <option v-for="n in 10" :key="n" :value="n">{{ n }}</option>
-        </select>
-      </div>
-
-      <!-- Nom -->
-      <div>
-        <label class="block mb-1 font-medium">Nom complet *</label>
-        <input type="text" v-model="reservation.name" required class="input" />
-      </div>
-
-      <!-- Téléphone -->
-      <div>
-        <label class="block mb-1 font-medium">Téléphone *</label>
-        <input
-          type="tel"
-          v-model="reservation.phone"
-          required
-          pattern="^[0-9\s\+\-]{6,15}$"
-          class="input"
-        />
-      </div>
-
-      <!-- Message -->
-      <div v-if="message" :class="{'text-green-600': success, 'text-red-600': !success}">
-        {{ message }}
-      </div>
-
-      <!-- Bouton -->
-      <button
-        type="submit"
-        class="w-full bg-blue-600 text-white text-lg font-semibold py-2 rounded hover:bg-blue-700 transition"
-      >
-        Réserver
-      </button>
-    </form>
+    </div>
   </div>
 </template>
 
 <script setup>
 import { reactive, ref } from 'vue'
+import axios from 'axios'
 
-const reservation = reactive({
+const form = reactive({
   date: '',
   time: '',
   people: 1,
-  name: '',
   phone: '',
 })
 
 const message = ref('')
 const success = ref(false)
 
+const API_URL = 'https://api.example.com/reservations' // 🔁 à remplacer
+
 async function submitReservation() {
-  if (!reservation.name || !reservation.phone) {
-    message.value = 'Veuillez remplir les champs obligatoires.'
-    success.value = false
-    return
-  }
-
   try {
-    const response = await fetch('https://api.example.com/reservations', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(reservation),
-    })
-
-    if (!response.ok) throw new Error('Erreur serveur')
-
+    const response = await axios.post(API_URL, form)
     message.value = 'Réservation envoyée avec succès !'
     success.value = true
 
-    reservation.date = ''
-    reservation.time = ''
-    reservation.people = 1
-    reservation.name = ''
-    reservation.phone = ''
-  } catch (error) {
-    message.value = 'Erreur lors de la réservation.'
+    // Reset form
+    form.date = ''
+    form.time = ''
+    form.people = 1
+    form.phone = ''
+  } catch (err) {
+    console.error(err)
+    message.value = 'Une erreur est survenue lors de la réservation.'
     success.value = false
   }
 }
 </script>
-
-<style scoped>
-.input {
-  width: 100%;
-  padding: 0.5rem 0.75rem;
-  border: 1px solid #ccc;
-  border-radius: 0.375rem;
-  font-size: 1rem;
-}
-</style>
