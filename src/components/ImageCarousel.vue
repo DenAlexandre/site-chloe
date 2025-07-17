@@ -20,11 +20,13 @@
 <script setup>
 import { ref, computed } from 'vue'
 
+import img1 from '../assets/img1.jpg'
+import img2 from '../assets/img2.jpg'
+import img3 from '../assets/img3.jpg'
+
 const images = [
-  'https://picsum.photos/1200/500?random=1',
-  'https://picsum.photos/1200/500?random=2',
-  'https://picsum.photos/1200/500?random=3',
-  'https://picsum.photos/1200/500?random=4',
+  img1,img2,img3,
+ // 'https://picsum.photos/1200/500?random=1',
 ]
 
 const index = ref(0)
@@ -70,7 +72,7 @@ function closeFullscreen() {
   width: 100%;
   height: auto;
   object-fit: cover;
-  transition: transform 0.3s ease;
+  transition: transform 3s ease;
 }
 
 .image-wrapper:hover img {
