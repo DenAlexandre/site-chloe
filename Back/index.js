@@ -14,7 +14,7 @@ const db = new sqlite3.Database('./reservations.db', (err) => {
 app.use(express.json());
 
 // GET all products
-app.get('/reservation', (req, res) => {
+app.get('/reservations', (req, res) => {
   db.all('SELECT * FROM reserv_table', (err, rows) => {
     if (err) {
       console.error(err.message);
@@ -27,8 +27,12 @@ app.get('/reservation', (req, res) => {
 
 // GET single product by ID
 app.get('/reservation/:id', (req, res) => {
-  const { id } = req.params;
-  db.get('SELECT * FROM reserv_table WHERE id = ?', [id], (err, row) => {
+  const id = parseInt(req.params.id, 10);
+
+  if (isNaN(id)) {
+    return res.status(400).send('Invalid ID format');
+  }
+  db.get('SELECT * FROM reserv_table WHERE id = ?', id, (err, row) => {
     if (err) {
       console.error(err.message);
       res.status(500).send('Internal server error');
@@ -64,7 +68,7 @@ app.put('/reservation/:id', (req, res) => {
   const { id } = req.params;
   const { name, nbr_personne, phone_number, date_heure } = req.body;
   if (!name || !phone_number) {
-    res.status(400).send('Name and price are required');
+    res.status(400).send('Name and phone_number are required');
   } else {
     const sql = 'UPDATE reserv_table SET name=?, nbr_personne=?, phone_number=?, date_heure=? WHERE id=?;';
     db.run(sql, [name, nbr_personne, phone_number, date_heure, id], function(err) {
