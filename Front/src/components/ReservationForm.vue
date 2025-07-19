@@ -60,6 +60,7 @@
 <script setup>
 import { reactive, ref } from 'vue'
 import axios from 'axios'
+import { API_GET, API_POST } from '../constants.js'
 
 const form = reactive(
 {
