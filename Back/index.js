@@ -48,18 +48,18 @@ app.get('/reservation/:id', (req, res) => {
 
 // POST new product
 app.post('/reservation', (req, res) => {
-  const { name, nbr_personne, phone_number, date_heure } = req.body;
+  const { name, nbr_personne, phone_number, date, heure } = req.body;
   if (!name || !phone_number) {
     res.status(400).send('Name and phone_number are required');
   } else {
-    const sql = 'INSERT INTO reserv_table (name, nbr_personne, phone_number, date_heure) VALUES(?, ?, ?, ?);';
-    db.run(sql, [name, nbr_personne, phone_number, date_heure], function(err) {
+    const sql = 'INSERT INTO reserv_table (name, nbr_personne, phone_number, date, heure) VALUES(?, ?, ?, ?, ?);';
+    db.run(sql, [name, nbr_personne, phone_number, date, heure], function(err) {
       if (err) {
         console.error(err.message);
         res.status(500).send('Internal server error');
       } else {
         const id = this.lastID;
-        res.status(201).send({ id, name, nbr_personne, phone_number, date_heure });
+        res.status(201).send({ id, name, nbr_personne, phone_number, date, heure });
       }
     });
   }
@@ -68,19 +68,19 @@ app.post('/reservation', (req, res) => {
 // PUT update product by ID
 app.put('/reservation/:id', (req, res) => {
   const { id } = req.params;
-  const { name, nbr_personne, phone_number, date_heure } = req.body;
+  const { name, nbr_personne, phone_number, date, heure } = req.body;
   if (!name || !phone_number) {
     res.status(400).send('Name and phone_number are required');
   } else {
-    const sql = 'UPDATE reserv_table SET name=?, nbr_personne=?, phone_number=?, date_heure=? WHERE id=?;';
-    db.run(sql, [name, nbr_personne, phone_number, date_heure, id], function(err) {
+    const sql = 'UPDATE reserv_table SET name=?, nbr_personne=?, phone_number=?, date=?, heure=? WHERE id=?;';
+    db.run(sql, [name, nbr_personne, phone_number, date, heure, id], function(err) {
       if (err) {
         console.error(err.message);
         res.status(500).send('Internal server error');
       } else if (this.changes === 0) {
         res.status(404).send('Product not found');
       } else {
-        res.status(200).send({ id, name, nbr_personne, phone_number, date_heure });
+        res.status(200).send({ id, name, nbr_personne, phone_number, date, heure });
       }
     });
   }

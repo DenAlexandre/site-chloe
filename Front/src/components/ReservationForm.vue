@@ -16,13 +16,13 @@
               <!-- Heure -->
               <div class="mb-3">
                 <label class="form-label">Heure</label>
-                <input type="time" class="form-control" v-model="form.time" required />
+                <input type="time" class="form-control" v-model="form.heure" required />
               </div>
 
               <!-- Nombre de personnes -->
               <div class="mb-3">
                 <label class="form-label">Nombre de personnes</label>
-                <select class="form-select" v-model.number="form.people" required>
+                <select class="form-select" v-model.number="form.nbr_personne" required>
                   <option v-for="n in 10" :key="n" :value="n">{{ n }}</option>
                 </select>
               </div>
@@ -33,7 +33,7 @@
                 <input
                   type="tel"
                   class="form-control"
-                  v-model="form.phone"
+                  v-model="form.phone_number"
                   required
                   pattern="^[0-9\s\+\-]{6,15}$"
                   placeholder="+33 6 12 34 56 78"
@@ -65,26 +65,43 @@ const form = reactive(
 {
   "name" : "Denis", 
   "nbr_personne" : 2, 
-  "phone_number" : "uhiuh", 
-  "date_heure" : "ihjoi"
+  "phone_number" : "0612121212", 
+  "date" : "17/07/2025",
+  "heure" : "10:03:00"
 }
 )
 
 const message = ref('')
 const success = ref(false)
 
-const API_URL = 'http://localhost:3000/reservation' // 🔁 à remplacer
+const API_URL = 'http://localhost:3000/reservation' 
 
 async function submitReservation() {
   try {
-const response = await axios.post(API_URL, { ...form }) // spread pour éviter proxy issues
+
+    //const response = await axios.post(API_URL, { ...form }) 
+
+    const response = await axios.post(API_URL, data, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(response => {
+      console.log('Réponse du serveur :', response.data);
+    })
+    .catch(error => {
+      console.error('Erreur lors de la requête :', error);
+    });
+
+
+
 
     message.value = 'Réservation envoyée avec succès !'
     success.value = true
 
     // Reset form
-    form.date_heure = ''
-    form.date_heure = ''
+    form.date = ''
+    form.heure = ''
     form.nbr_personne = 1
     form.phone_number = ''
 

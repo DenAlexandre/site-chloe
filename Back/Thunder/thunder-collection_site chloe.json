@@ -2,7 +2,7 @@
     "clientName": "Thunder Client",
     "collectionName": "site chloe",
     "collectionId": "4149cfca-c1dc-4edc-a87d-60d8668a2834",
-    "dateExported": "2025-07-19T07:11:35.064Z",
+    "dateExported": "2025-07-19T07:52:16.304Z",
     "version": "1.2",
     "folders": [],
     "requests": [
@@ -39,11 +39,11 @@
             "method": "POST",
             "sortNum": 50000,
             "created": "2025-07-19T06:43:11.863Z",
-            "modified": "2025-07-19T06:45:00.580Z",
+            "modified": "2025-07-19T07:50:57.155Z",
             "headers": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"name\" : \"Denis\", \n  \"nbr_personne\" : 2, \n  \"phone_number\" : \"uhiuh\", \n  \"date_heure\" : \"ihjoi\"\n}\n",
+                "raw": "{\n  \"name\" : \"Denis\", \n  \"nbr_personne\" : 2, \n  \"phone_number\" : \"uhiuh\", \n  \"date\" : \"17/07/2025\",\n  \"heure\" : \"10:03:00\"\n}\n",
                 "form": []
             }
         },
@@ -52,15 +52,15 @@
             "colId": "4149cfca-c1dc-4edc-a87d-60d8668a2834",
             "containerId": "",
             "name": "update",
-            "url": "http://localhost:3000/reservation/1",
+            "url": "http://localhost:3000/reservation/4",
             "method": "PUT",
             "sortNum": 60000,
             "created": "2025-07-19T06:46:00.292Z",
-            "modified": "2025-07-19T07:09:58.193Z",
+            "modified": "2025-07-19T07:52:02.763Z",
             "headers": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"name\" : \"Denis4\", \n  \"nbr_personne\" : 2, \n  \"phone_number\" : \"uhiuh\", \n  \"date_heure\" : \"ihjoi\"\n}\n",
+                "raw": "{\n  \"name\" : \"Denis44\", \n  \"nbr_personne\" : 2, \n  \"phone_number\" : \"uhiuh\", \n  \"date\" : \"17/07/2025\",\n  \"heure\" : \"10:03:00\"\n}\n",
                 "form": []
             }
         },
@@ -69,13 +69,13 @@
             "colId": "4149cfca-c1dc-4edc-a87d-60d8668a2834",
             "containerId": "",
             "name": "delete",
-            "url": "http://localhost:3000/reservation/4",
+            "url": "http://localhost:3000/reservation/3",
             "method": "DELETE",
             "sortNum": 70000,
             "created": "2025-07-19T07:10:27.663Z",
-            "modified": "2025-07-19T07:10:59.024Z",
+            "modified": "2025-07-19T07:51:13.974Z",
             "headers": []
         }
     ],
-    "ref": "DU-XmuGQk-q9YHEmcSNNWgetE1pyaZVx7EyvMw22__Cg1jUyvkS7tyKSl3Tu50UL2rbEifaxgVNpVDmr8GQKlA"
+    "ref": "DU-XmuGQk-q9YHEmcSNNWgetE1pyaZVx7EyvMw22__AvlzAH3nNeKuU4g14oZBwTpowIV53vkMf4AKd_OAdniQ"
 }
