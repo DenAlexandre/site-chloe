@@ -7,7 +7,7 @@
         <router-link to="/" @click="closeMenu">Accueil</router-link>
         <router-link to="/gallery" @click="closeMenu">Galerie</router-link>
         <router-link to="/contact" @click="closeMenu">Contact</router-link>
-
+        <router-link to="/admin" @click="closeMenu">Admin</router-link>
       </nav>
     </header>
     <main>

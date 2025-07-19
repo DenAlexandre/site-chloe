@@ -3,6 +3,7 @@ import Home from '../views/Home.vue'
 import Gallery from '../views/Gallery.vue'
 import ImageCarouselForm from '../components/ImageCarousel.vue' 
 import ReservationForm from '../components/ReservationForm.vue' 
+import ReservationTable from '../components/ReservationTable.vue' 
 import ContactPage from '../views/ContactPage.vue'
 
 const routes = [
@@ -10,6 +11,7 @@ const routes = [
   { path: '/contact', component: ContactPage },
   { path: '/reservation', name : 'Reservation' ,component: ReservationForm },
   { path: '/gallery', name : 'Caroussel' ,component: ImageCarouselForm },
+  { path: '/admin', name : 'Admin' ,component: ReservationTable },
 ]
 
 const router = createRouter({
