@@ -66,7 +66,7 @@ const form = reactive(
   "name" : "Denis", 
   "nbr_personne" : 2, 
   "phone_number" : "0612121212", 
-  "date" : "17/07/2025",
+  "date" : "2025-07-14",
   "heure" : "10:03:00"
 }
 )
@@ -81,7 +81,7 @@ async function submitReservation() {
 
     //const response = await axios.post(API_URL, { ...form }) 
 
-    const response = await axios.post(API_URL, data, {
+    const response = await axios.post(API_URL, form, {
       headers: {
         'Content-Type': 'application/json'
       }
