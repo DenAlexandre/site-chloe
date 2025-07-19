@@ -41,15 +41,13 @@
 </template>
 
 <script setup>
+import { API_GET, API_POST } from '../constants.js'
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
 
 const reservations = ref([])
 const loading = ref(false)
 const error = ref(null)
-
-const API_GET = 'http://localhost:3000/reservations'
-const API_DELETE = 'http://localhost:3000/reservation'
 
 const fetchReservations = async () => {
   loading.value = true
@@ -67,7 +65,7 @@ const fetchReservations = async () => {
 const deleteReservation = async (id) => {
   if (!confirm('Confirmer la suppression ?')) return
   try {
-    await axios.delete(`${API_DELETE}/${id}`)
+    await axios.delete(`${API_POST}/${id}`)
     reservations.value = reservations.value.filter(r => r.id !== id)
   } catch (err) {
     error.value = 'Erreur lors de la suppression.'

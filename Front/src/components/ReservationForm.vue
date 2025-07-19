@@ -74,14 +74,11 @@ const form = reactive(
 const message = ref('')
 const success = ref(false)
 
-const API_URL = 'http://localhost:3000/reservation' 
 
 async function submitReservation() {
   try {
 
-    //const response = await axios.post(API_URL, { ...form }) 
-
-    const response = await axios.post(API_URL, form, {
+    const response = await axios.post(API_POST, form, {
       headers: {
         'Content-Type': 'application/json'
       }
