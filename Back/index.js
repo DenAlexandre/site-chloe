@@ -1,4 +1,5 @@
-const express = require('express');
+const express = require('express')
+const cors = require('cors')
 const sqlite3 = require('sqlite3').verbose();
 
 const app = express();
@@ -11,7 +12,8 @@ const db = new sqlite3.Database('./reservations.db', (err) => {
   console.log('Connected to the reservations database.');
 });
 
-app.use(express.json());
+app.use(cors()) // ← autorise toutes les origines
+app.use(express.json())
 
 // GET all products
 app.get('/reservations', (req, res) => {

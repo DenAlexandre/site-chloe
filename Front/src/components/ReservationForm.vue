@@ -61,29 +61,33 @@
 import { reactive, ref } from 'vue'
 import axios from 'axios'
 
-const form = reactive({
-  date: '',
-  time: '',
-  people: 1,
-  phone: '',
-})
+const form = reactive(
+{
+  "name" : "Denis", 
+  "nbr_personne" : 2, 
+  "phone_number" : "uhiuh", 
+  "date_heure" : "ihjoi"
+}
+)
 
 const message = ref('')
 const success = ref(false)
 
-const API_URL = 'https://api.example.com/reservations' // 🔁 à remplacer
+const API_URL = 'http://localhost:3000/reservation' // 🔁 à remplacer
 
 async function submitReservation() {
   try {
-    const response = await axios.post(API_URL, form)
+const response = await axios.post(API_URL, { ...form }) // spread pour éviter proxy issues
+
     message.value = 'Réservation envoyée avec succès !'
     success.value = true
 
     // Reset form
-    form.date = ''
-    form.time = ''
-    form.people = 1
-    form.phone = ''
+    form.date_heure = ''
+    form.date_heure = ''
+    form.nbr_personne = 1
+    form.phone_number = ''
+
   } catch (err) {
     console.error(err)
     message.value = 'Une erreur est survenue lors de la réservation.'
