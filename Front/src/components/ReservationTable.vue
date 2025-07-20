@@ -45,6 +45,7 @@ import { API_GET, API_POST } from '../constants.js'
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
 
+
 const reservations = ref([])
 const loading = ref(false)
 const error = ref(null)
