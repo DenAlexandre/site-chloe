@@ -4,5 +4,5 @@ import { SERVEUR_PORT_FRONT } from './src/constants.js'
 
 export default defineConfig({
   plugins: [vue()],
-  allowedHosts: 'all'
+allowedHosts: ['site-chloe.onrender.com']
 })
