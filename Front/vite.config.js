@@ -8,7 +8,8 @@ export default defineConfig({
   plugins: [vue()],
   server: {
     port: port, // ou n'importe quel port
-    host: '0.0.0.0' // pour accéder depuis d'autres machines
-  },
+    host: '0.0.0.0', // pour accéder depuis d'autres machines
     allowedHosts: 'all'
+  },
+
 })
