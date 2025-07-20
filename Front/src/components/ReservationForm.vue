@@ -7,16 +7,25 @@
             <h2 class="card-title text-center mb-4">Réserver une table</h2>
 
             <form @submit.prevent="submitReservation">
-              <!-- Date -->
+
+
+
+
+              <!-- Nom -->
               <div class="mb-3">
-                <label class="form-label">Date</label>
-                <input type="date" class="form-control" v-model="form.date" required />
+                <label class="form-label">Nom</label>
+                <input type="name" class="form-control" v-model="form.name" required />
               </div>
 
-              <!-- Heure -->
+              <!-- Créneau horaire -->
               <div class="mb-3">
-                <label class="form-label">Heure</label>
-                <input type="time" class="form-control" v-model="form.heure" required />
+                <label class="form-label">Créneau horaire</label>
+                <select class="form-select" v-model="form.heure" required>
+                  <option disabled value="">-- Choisissez un créneau --</option>
+                  <option v-for="(creneau, index) in creneaux" :key="index" :value="creneau">
+                    {{ creneau }}
+                  </option>
+                </select>
               </div>
 
               <!-- Nombre de personnes -->
@@ -58,7 +67,7 @@
 </template>
 
 <script setup>
-import { reactive, ref } from 'vue'
+import { reactive, ref, computed} from 'vue'
 import axios from 'axios'
 import { API_GET, API_POST } from '../constants.js'
 
@@ -68,12 +77,42 @@ const form = reactive(
   "nbr_personne" : 2, 
   "phone_number" : "0612121212", 
   "date" : "2025-07-14",
-  "heure" : "10:03:00"
+  "heure": ''
 }
 )
 
 const message = ref('')
 const success = ref(false)
+
+// Créneaux de 30 minutes, entre 11:00 et 15:00
+const creneaux = computed(() => {
+  const start = 11 * 60 // 11h00
+  const end = 15 * 60   // 15h00
+  const step = 30       // 30 minutes
+  const slots = []
+
+  for (let mins = start; mins + step <= end; mins += step) {
+    const h1 = Math.floor(mins / 60).toString().padStart(2, '0')
+    const m1 = (mins % 60).toString().padStart(2, '0')
+
+    const h2 = Math.floor((mins + step) / 60).toString().padStart(2, '0')
+    const m2 = ((mins + step) % 60).toString().padStart(2, '0')
+
+    slots.push(`${h1}:${m1} - ${h2}:${m2}`)
+  }
+
+  return slots
+})
+
+
+
+
+
+
+
+
+
+
 
 
 async function submitReservation() {
